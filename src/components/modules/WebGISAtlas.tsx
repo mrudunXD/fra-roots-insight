@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapView } from "@/components/map/MapView";
+import { MapboxMapView } from "@/components/map/MapboxMapView";
 import { LayerControl } from "@/components/map/LayerControl";
 import { ClaimFilters } from "@/components/map/ClaimFilters";
 import { MapLegend } from "@/components/map/MapLegend";
@@ -94,7 +94,7 @@ export const WebGISAtlas = () => {
 
       {/* Main Map Area */}
       <div className="flex-1 relative">
-        <MapView 
+        <MapboxMapView 
           layers={selectedLayers} 
           filters={filters} 
         />
