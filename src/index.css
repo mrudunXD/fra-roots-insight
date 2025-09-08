@@ -2,87 +2,139 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* FRA Atlas Design System - Professional GIS Platform */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors - Clean whites and grays */
+    --background: 210 20% 98%;
+    --foreground: 210 15% 15%;
 
+    /* Card and surface colors */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Forest green for government/environmental theme */
+    --primary: 145 65% 25%;
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 145 65% 20%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Earth brown tones */
+    --secondary: 30 25% 88%;
+    --secondary-foreground: 30 15% 25%;
+    --secondary-hover: 30 25% 82%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted - Subtle grays for backgrounds */
+    --muted: 210 15% 96%;
+    --muted-foreground: 210 10% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Government blue for highlights */
+    --accent: 210 80% 55%;
+    --accent-foreground: 0 0% 98%;
+    --accent-hover: 210 80% 50%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Status colors */
+    --success: 142 70% 35%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 38 95% 55%;
+    --warning-foreground: 38 15% 15%;
+    
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Interactive elements */
+    --border: 210 15% 88%;
+    --input: 210 15% 94%;
+    --ring: 145 65% 25%;
 
+    /* GIS specific colors */
+    --fra-ifr: 120 60% 45%;  /* Individual Forest Rights - Green */
+    --fra-cfr: 200 70% 45%;  /* Community Forest Rights - Blue */
+    --fra-cr: 280 60% 45%;   /* Community Rights - Purple */
+    
+    /* Map layer colors */
+    --forest-cover: 120 50% 30%;
+    --agricultural: 60 70% 50%;
+    --water-body: 200 80% 60%;
+    --settlement: 20 30% 70%;
+
+    /* Gradients for depth and visual hierarchy */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-surface: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+
+    /* Shadows for professional depth */
+    --shadow-sm: 0 1px 2px hsl(var(--primary) / 0.1);
+    --shadow-md: 0 4px 6px hsl(var(--primary) / 0.1);
+    --shadow-lg: 0 10px 15px hsl(var(--primary) / 0.1);
+    --shadow-xl: 0 20px 25px hsl(var(--primary) / 0.15);
+
+    /* Professional spacing and sizing */
     --radius: 0.5rem;
 
+    /* Sidebar variables for layout consistency */
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 210 15% 8%;
+    --foreground: 210 20% 92%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 210 15% 10%;
+    --card-foreground: 210 20% 92%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 210 15% 10%;
+    --popover-foreground: 210 20% 92%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 145 65% 35%;
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 145 65% 30%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 30 15% 15%;
+    --secondary-foreground: 30 25% 85%;
+    --secondary-hover: 30 15% 12%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 210 15% 12%;
+    --muted-foreground: 210 10% 55%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 210 80% 65%;
+    --accent-foreground: 0 0% 98%;
+    --accent-hover: 210 80% 60%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 38 95% 65%;
+    --warning-foreground: 38 15% 15%;
+    
+    --destructive: 0 75% 65%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 210 15% 18%;
+    --input: 210 15% 16%;
+    --ring: 145 65% 35%;
+
+    /* Dark mode FRA colors with better contrast */
+    --fra-ifr: 120 60% 55%;
+    --fra-cfr: 200 70% 55%;
+    --fra-cr: 280 60% 55%;
+    
+    --forest-cover: 120 50% 40%;
+    --agricultural: 60 70% 60%;
+    --water-body: 200 80% 70%;
+    --settlement: 20 30% 80%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
