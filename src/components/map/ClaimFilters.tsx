@@ -3,6 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { Filter, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { statesData, districtsData, claimTypesData, statusData } from "@/lib/mockData";
 
 interface ClaimFiltersProps {
   filters: {
@@ -28,37 +29,6 @@ export const ClaimFilters = ({ filters, onFiltersChange }: ClaimFiltersProps) =>
     });
   };
 
-  // Mock data for pilot states
-  const states = [
-    { value: 'all', label: 'All States' },
-    { value: 'Madhya Pradesh', label: 'Madhya Pradesh' },
-    { value: 'Tripura', label: 'Tripura' },
-    { value: 'Odisha', label: 'Odisha' },
-    { value: 'Telangana', label: 'Telangana' },
-  ];
-
-  const districts = [
-    { value: 'all', label: 'All Districts' },
-    { value: 'Bastar', label: 'Bastar' },
-    { value: 'Keonjhar', label: 'Keonjhar' },
-    { value: 'Agartala', label: 'Agartala' },
-    { value: 'Warangal', label: 'Warangal' },
-  ];
-
-  const claimTypes = [
-    { value: 'all', label: 'All Claim Types' },
-    { value: 'IFR', label: 'Individual Forest Rights (IFR)' },
-    { value: 'CFR', label: 'Community Forest Rights (CFR)' },
-    { value: 'CR', label: 'Community Rights (CR)' },
-  ];
-
-  const statuses = [
-    { value: 'all', label: 'All Statuses' },
-    { value: 'Granted', label: 'Granted' },
-    { value: 'Pending', label: 'Pending' },
-    { value: 'Verified', label: 'Verified' },
-    { value: 'Rejected', label: 'Rejected' },
-  ];
 
   return (
     <Card className="p-4">
@@ -82,7 +52,7 @@ export const ClaimFilters = ({ filters, onFiltersChange }: ClaimFiltersProps) =>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {states.map((state) => (
+              {statesData.map((state) => (
                 <SelectItem key={state.value} value={state.value}>
                   {state.label}
                 </SelectItem>
@@ -100,7 +70,7 @@ export const ClaimFilters = ({ filters, onFiltersChange }: ClaimFiltersProps) =>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {districts.map((district) => (
+              {districtsData.map((district) => (
                 <SelectItem key={district.value} value={district.value}>
                   {district.label}
                 </SelectItem>
@@ -118,7 +88,7 @@ export const ClaimFilters = ({ filters, onFiltersChange }: ClaimFiltersProps) =>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {claimTypes.map((type) => (
+              {claimTypesData.map((type) => (
                 <SelectItem key={type.value} value={type.value}>
                   {type.label}
                 </SelectItem>
@@ -136,7 +106,7 @@ export const ClaimFilters = ({ filters, onFiltersChange }: ClaimFiltersProps) =>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {statuses.map((status) => (
+              {statusData.map((status) => (
                 <SelectItem key={status.value} value={status.value}>
                   {status.label}
                 </SelectItem>

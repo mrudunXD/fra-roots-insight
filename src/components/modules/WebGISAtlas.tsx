@@ -3,9 +3,13 @@ import { MapboxMapView } from "@/components/map/MapboxMapView";
 import { LayerControl } from "@/components/map/LayerControl";
 import { ClaimFilters } from "@/components/map/ClaimFilters";
 import { MapLegend } from "@/components/map/MapLegend";
+import { ClaimsTable } from "@/components/claims/ClaimsTable";
+import { ClaimsAnalytics } from "@/components/analytics/ClaimsAnalytics";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, Share2, Info } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Download, Share2, Info, Table, BarChart3, Map } from "lucide-react";
+import { DataService } from "@/lib/dataService";
 import {
   Sidebar,
   SidebarContent,
@@ -51,6 +55,21 @@ export const WebGISAtlas = () => {
     status: 'all',
   });
 
+  const [activeTab, setActiveTab] = useState("map");
+
+  const handleExportData = () => {
+    const data = DataService.exportData();
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `webgis_data_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <SidebarProvider>
       <div className="h-full flex w-full">
@@ -62,15 +81,41 @@ export const WebGISAtlas = () => {
                 <Button variant="outline" size="icon">
                   <Share2 className="h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" onClick={handleExportData}>
                   <Download className="h-4 w-4" />
                 </Button>
               </div>
             </div>
 
-            <ClaimFilters filters={filters} onFiltersChange={setFilters} />
-            <LayerControl layers={selectedLayers} onLayersChange={setSelectedLayers} />
-            <MapLegend />
+            {/* Navigation Tabs */}
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="map" className="flex items-center gap-2">
+                  <Map className="h-4 w-4" />
+                  Map View
+                </TabsTrigger>
+                <TabsTrigger value="table" className="flex items-center gap-2">
+                  <Table className="h-4 w-4" />
+                  Claims Table
+                </TabsTrigger>
+                <TabsTrigger value="analytics" className="flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4" />
+                  Analytics
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+
+            {activeTab === "map" && (
+              <>
+                <ClaimFilters filters={filters} onFiltersChange={setFilters} />
+                <LayerControl layers={selectedLayers} onLayersChange={setSelectedLayers} />
+                <MapLegend />
+              </>
+            )}
+
+            {(activeTab === "table" || activeTab === "analytics") && (
+              <ClaimFilters filters={filters} onFiltersChange={setFilters} />
+            )}
 
             {/* Info Panel */}
             <Card className="p-4">
@@ -99,12 +144,24 @@ export const WebGISAtlas = () => {
           </SidebarContent>
         </Sidebar>
 
-        {/* Main Map Area */}
+        {/* Main Content Area */}
         <div className="flex-1 relative">
-          <MapboxMapView 
-            layers={selectedLayers} 
-            filters={filters} 
-          />
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full">
+            <TabsContent value="map" className="h-full m-0">
+              <MapboxMapView 
+                layers={selectedLayers} 
+                filters={filters} 
+              />
+            </TabsContent>
+            
+            <TabsContent value="table" className="h-full m-0 p-4 overflow-y-auto">
+              <ClaimsTable filters={filters} />
+            </TabsContent>
+            
+            <TabsContent value="analytics" className="h-full m-0 p-4 overflow-y-auto">
+              <ClaimsAnalytics />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </SidebarProvider>
